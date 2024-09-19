@@ -47,7 +47,7 @@ npm run dev
 
 Запустить проверку линтера
 ```bash
-npm run build:analyze
+npm run lint
 ```
 
 

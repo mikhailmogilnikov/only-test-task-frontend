@@ -1,5 +1,7 @@
 # Тестовое задание Frontend в Only
 
+[Live-версия](only-test-task-frontend.vercel.app)
+
 ### Инструкция по запуску
 
 1) Склонируйте репозиторий

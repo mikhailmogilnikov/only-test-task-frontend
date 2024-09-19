@@ -1,10 +1,10 @@
 # Тестовое задание Frontend в Only
 
-#### Инструкция по запуску
+### Инструкция по запуску
 
 1) Склонируйте репозиторий
 ```bash
-git clone ...
+git clone https://github.com/mikhailmogilnikov/only-test-task-frontend.git
 ```
 
 2) Установите зависимости
@@ -22,9 +22,9 @@ npm run build
 npm run start
 ```
 
-##### Решение будет доступно после запуска на `localhost:3000`
+#### Решение будет доступно после запуска на `localhost:3000`
 
-#### Особенности
+### Особенности
 
 - Самописный сборщик на Webpack
 - Настроенный линтер
@@ -33,7 +33,7 @@ npm run start
 - Стек: TypeScript, React, SCSS, GSAP, Swiper
 - Chunk-splitting, Minified CSS, PostCSS + Autoprefixer
 
-#### Дополнительно
+### Дополнительно
 
 Посмотреть размер собранного бандла в расширенном формате
 ```bash

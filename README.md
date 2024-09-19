@@ -31,6 +31,7 @@ npm run start
 - Самописный сборщик на Webpack
 - Настроенный линтер
 - Прекоммит и препуш хуки (автолинт, автопретир, автосборка)
+- Подключен CI (Github Actions)
 - Архитектура FSD
 - Стек: TypeScript, React, SCSS, GSAP, Swiper
 - Chunk-splitting, Minified CSS, PostCSS + Autoprefixer

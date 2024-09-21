@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 
-import { HomePage } from '@/pages';
+import { HomePage } from '@/pages/home';
 
 export const router = createBrowserRouter([
   {

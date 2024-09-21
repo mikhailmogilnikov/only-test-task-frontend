@@ -5,11 +5,17 @@
   --color-foreground: hsl(219, 30%, 37%);
   --color-primary: hsl(219, 84%, 58%);
   --color-secondary: hsl(329, 82%, 65%);
-  --color-divider: hsla(--accent-foreground, 0.1);
+  --color-divider: hsla(219, 30%, 37%, 0.1);
+
+  --layout-divider-width: 1px;
 }
 
 html {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: 'PT Sans', sans-serif;
+  padding: 0;
+  margin: 0;
 }
+
+

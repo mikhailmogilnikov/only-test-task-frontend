@@ -1,0 +1,25 @@
+@import '@/app/css/mixins.scss';
+
+.wrapper {
+  @include flex(column, $jus: end);
+  width: 100%;
+  height: 100vh;
+  border-width: 0 var(--layout-divider-width);
+  border-color: var(--color-divider);
+  border-style: solid;
+  position: relative;
+}
+
+.middle-separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-divider);
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

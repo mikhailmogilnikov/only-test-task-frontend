@@ -38,7 +38,7 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
   };
 
   const scssLoader = {
-    test: /\.s[ac]ss$/i,
+    test: /\.(s[ac]|c)ss$/i, // Поддержка как .css, так и .scss файлов
     use: [
       // Creates `style` nodes from JS strings
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,

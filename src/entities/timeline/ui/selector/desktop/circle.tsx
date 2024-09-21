@@ -1,16 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import { useTimelines } from '../../../lib/timelines-provider';
+import { calculateDotPosition } from '../../../lib/calc-dot-position';
 
 import desktopStyles from './styles.module.scss';
 
 import { ExpandDot } from '@/shared/ui/expand-dot';
-
-const radToDeg = (radians: number) => (radians * 180) / Math.PI;
+import { radToDeg } from '@/shared/lib/utils/rad-to-deg';
 
 export const TimelineCircle = () => {
-  const { active, setActive } = useTimelines();
+  const { setActive } = useTimelines();
+
+  const container = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
 
   const radius = 265;
   const startAngle = -Math.PI / 6;
@@ -18,42 +22,45 @@ export const TimelineCircle = () => {
 
   const [dots] = useState(Array.from({ length: totalDots }, (_, index) => index));
 
-  const circleRef = useRef<HTMLDivElement>(null);
+  const { contextSafe } = useGSAP(
+    () => {
+      dots.forEach((_, index) => {
+        const { x, y } = calculateDotPosition(radius, index, dots.length, startAngle);
 
-  // Функция для расчета координат каждой точки на окружности
-  const calculateDotPosition = (index: number, total: number, angleOffset = 0) => {
-    const angle = ((2 * Math.PI) / total) * index + angleOffset;
-    const x = radius + radius * Math.cos(angle);
-    const y = radius + radius * Math.sin(angle);
+        gsap.set(`.dot-${index}`, { x, y });
+      });
+    },
+    { scope: container, dependencies: [dots] },
+  );
 
-    return { x, y };
-  };
-
-  useEffect(() => {
-    dots.forEach((_, index) => {
-      const { x, y } = calculateDotPosition(index, dots.length, startAngle);
-
-      gsap.set(`.dot-${index}`, { x, y }); // Инициализируем позиции точек
-    });
-  }, [dots]);
-
-  const handleDotClick = (index: number) => {
+  const handleDotClick = contextSafe((index: number) => {
     const clickedAngle = ((2 * Math.PI) / totalDots) * index;
     const rotateBy = startAngle - clickedAngle;
+    const degrees = radToDeg(rotateBy);
 
     // Поворачиваем контейнер
     gsap.to(circleRef.current, {
       duration: 1,
-      rotation: radToDeg(rotateBy),
-      transformOrigin: `${radius}px ${radius}px`,
+      rotation: degrees,
       ease: 'power2.inOut',
     });
 
+    // Поворачиваем каждую точку в противоположную сторону
+    dots.forEach((_, dotIndex) => {
+      const angleOffset = -degrees;
+
+      gsap.to(`.dot-${dotIndex}`, {
+        duration: 1,
+        rotation: angleOffset,
+        ease: 'power2.inOut',
+      });
+    });
+
     setActive(index);
-  };
+  });
 
   return (
-    <div className={desktopStyles['circle-wrapper']}>
+    <div ref={container} className={desktopStyles['circle-wrapper']}>
       <div
         ref={circleRef}
         className={desktopStyles.circle}

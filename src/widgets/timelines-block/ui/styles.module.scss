@@ -18,6 +18,7 @@
   transform: translateX(-50%);
   width: 1px;
   height: 100%;
+  z-index: 0;
   background-color: var(--color-divider);
   @media (max-width: 768px) {
     display: none;

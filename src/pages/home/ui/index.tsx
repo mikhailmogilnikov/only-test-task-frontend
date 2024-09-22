@@ -8,6 +8,7 @@ export const HomePage = () => {
   return (
     <main className={styles.wrapper}>
       <TimelinesBlock timelines={MockTimelines} />
+      <TimelinesBlock timelines={MockTimelines} />
     </main>
   );
 };

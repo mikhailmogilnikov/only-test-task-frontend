@@ -1,10 +1,16 @@
 @import '@/app/css/mixins.scss';
 
 .wrapper {
-  width: 100%;
   height: 600px;
   position: relative;
   margin-bottom: 50px;
+
+  @media (max-width: 1100px) {
+    height: 50%;
+    margin-bottom: 0;
+    margin: 0 20px;
+    border-bottom: 1px solid var(--color-divider-bold);
+  }
 }
 
 .middle-separator {
@@ -27,6 +33,10 @@
   z-index: 0;
   width: fit-content;
 
+  @media (max-width: 1100px) {
+    top: 70%;
+  }
+
   .text {
     font-size: 200px;
     font-weight: 700;
@@ -45,6 +55,18 @@
     .secondary {
       color: var(--color-secondary);
     }
+
+    @media (max-width: 1100px) {
+      font-size: 10vw;
+
+      .spacer {
+        margin: 0 10px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      font-size: 56px;
+    }
   }
 }
 
@@ -53,6 +75,13 @@
   position: absolute;
   left: 60px;
   bottom: 0px;
+  z-index: 20;
+
+  @media (max-width: 1100px) {
+    gap: 8px;
+    left: 16px;
+    bottom: 16px;
+  }
 
   p {
     font-size: 14px;
@@ -61,6 +90,10 @@
 
   .buttons-wrapper {
     @include flex(row, $gap: 16px);
+
+    @media (max-width: 1100px) {
+      gap: 8px;
+    }
 
     button {
       width: 50px;
@@ -75,6 +108,11 @@
 
       &:hover {
         background-color: #fff;
+      }
+
+      @media (max-width: 1100px) {
+        width: 25px;
+        height: 25px;
       }
 
       svg {
@@ -105,14 +143,21 @@
   }
 
   @media (max-width: 1100px) {
+    margin-top: 10vh;
     gap: 0;
 
     h1 {
-      font-size: 20px;
+      font-size: 4vw;
     }
 
     .accent-line {
       display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 20px;
     }
   }
 }

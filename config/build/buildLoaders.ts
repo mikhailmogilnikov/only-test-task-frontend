@@ -25,8 +25,8 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     },
   };
 
-  // Для поддержки CSS-modules
-  const cssLoaderWithModule = {
+  // Лоадер для обычных CSS/SCSS файлов с поддержкой CSS Modules
+  const cssLoaderWithModules = {
     loader: 'css-loader',
     options: {
       modules: {
@@ -37,16 +37,33 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     },
   };
 
-  const scssLoader = {
-    test: /\.(s[ac]|c)ss$/i, // Поддержка как .css, так и .scss файлов
-    sideEffects: true,
+  // Лоадер для глобальных стилей, где CSS Modules отключен
+  const cssLoaderWithoutModules = {
+    loader: 'css-loader',
+    options: {
+      modules: false, // Отключаем CSS Modules для глобальных стилей
+    },
+  };
+
+  // Правило для файлов, которые содержат `.global.css`
+  const globalStylesLoader = {
+    test: /\.global\.css$/i,
     use: [
-      // Creates `style` nodes from JS strings
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-      // Translates CSS into CommonJS
-      cssLoaderWithModule,
+      cssLoaderWithoutModules,
       postCssLoader,
-      // Compiles Sass to CSS
+      'sass-loader',
+    ],
+  };
+
+  // Правило для остальных стилей, где CSS Modules включён
+  const scssLoader = {
+    test: /\.(s[ac]|c)ss$/i,
+    exclude: /\.global\.css$/, // Исключаем глобальные стили
+    use: [
+      isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      cssLoaderWithModules,
+      postCssLoader,
       'sass-loader',
     ],
   };
@@ -55,7 +72,7 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 
   // Для поддержки ассетов
   const assetsLoader = {
-    test: /\.((jpe?g|png|gif|woff|woff2|eot|ttf))$/i,
+    test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf)$/i,
     type: 'asset/resource',
   };
 
@@ -75,5 +92,6 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     ],
   };
 
-  return [scssLoader, assetsLoader, babelLoader, svgrLoader];
+  // Возвращаем все правила
+  return [globalStylesLoader, scssLoader, assetsLoader, babelLoader, svgrLoader];
 };

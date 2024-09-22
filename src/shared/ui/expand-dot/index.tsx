@@ -19,6 +19,8 @@ export const ExpandDot = ({ children, onClick, title, isActive = false }: Props)
 
   useGSAP(
     () => {
+      if (!container.current) return;
+
       if (isHovered || isActive) {
         gsap.to('.circle', {
           width: 60,
@@ -48,6 +50,8 @@ export const ExpandDot = ({ children, onClick, title, isActive = false }: Props)
 
   useGSAP(
     () => {
+      if (!container.current) return;
+
       if (isActive) {
         gsap.to('.title', {
           scale: 1,

@@ -1,3 +1,9 @@
+import { TimelineSelectorTitle } from '../title';
+
 export const TimelineSelectorMobile = () => {
-  return <div>m</div>;
+  return (
+    <div>
+      <TimelineSelectorTitle />
+    </div>
+  );
 };

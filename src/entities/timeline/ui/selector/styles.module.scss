@@ -103,4 +103,16 @@
   h1 {
     font-size: 56px;
   }
+
+  @media (max-width: 1100px) {
+    gap: 0;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .accent-line {
+      display: none;
+    }
+  }
 }

@@ -1,3 +1,11 @@
+import './swiper.global.css';
+
+import { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+
+import { IEvent } from '../../model/event.type';
+
 import { DesktopEventsGallery } from './desktop';
 import styles from './styles.module.scss';
 
@@ -10,9 +18,31 @@ export const EventsGallery = () => {
 
   const { events } = timelines[activeTimelineIndex];
 
+  const [eventsData, setEventsData] = useState<IEvent[]>([]);
+
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.set(container.current, { opacity: 0, y: 20 });
+  });
+
+  useGSAP(
+    () => {
+      gsap.to(container.current, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => setEventsData(events),
+      });
+
+      gsap.set(container.current, { opacity: 0, y: 20, delay: 0.5 });
+      gsap.to(container.current, { opacity: 1, y: 0, delay: 1 });
+    },
+    { dependencies: [activeTimelineIndex] },
+  );
+
   return (
-    <div className={styles.wrapper}>
-      {isMobile ? 'd' : <DesktopEventsGallery events={events} />}
+    <div ref={container} className={styles.wrapper}>
+      {isMobile ? 'd' : <DesktopEventsGallery events={eventsData} />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -11,26 +11,46 @@ import { ExpandDot } from '@/shared/ui/expand-dot';
 import { radToDeg } from '@/shared/lib/utils/rad-to-deg';
 
 export const TimelineCircle = () => {
-  const { setActive } = useTimelines();
+  const { setActiveTimelineIndex, timelines, activeTimelineIndex } = useTimelines();
 
   const container = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
 
   const radius = 265;
   const startAngle = -Math.PI / 6;
-  const totalDots = 6;
+  const totalDots = timelines.length;
 
-  const [dots] = useState(Array.from({ length: totalDots }, (_, index) => index));
+  const [dots] = useState(timelines.map(({ id }) => id));
+
+  useEffect(() => {
+    handleDotClick(activeTimelineIndex);
+  }, [activeTimelineIndex]);
 
   const { contextSafe } = useGSAP(
     () => {
       dots.forEach((_, index) => {
-        const { x, y } = calculateDotPosition(radius, index, dots.length, startAngle);
+        const { x, y } = calculateDotPosition(radius, index, totalDots, startAngle);
 
         gsap.set(`.dot-${index}`, { x, y });
+
+        // Устанавливаем вращение круга так, как будто нажали на первую точку
+        const clickedAngle = ((2 * Math.PI) / totalDots) * 0;
+        const rotateBy = startAngle - clickedAngle;
+
+        gsap.set(circleRef.current, {
+          rotation: radToDeg(rotateBy),
+        });
+
+        dots.forEach((_, dotIndex) => {
+          const angleOffset = -radToDeg(rotateBy);
+
+          gsap.set(`.dot-${dotIndex}`, {
+            rotation: angleOffset,
+          });
+        });
       });
     },
-    { scope: container, dependencies: [dots] },
+    { scope: container },
   );
 
   const handleDotClick = contextSafe((index: number) => {
@@ -56,7 +76,7 @@ export const TimelineCircle = () => {
       });
     });
 
-    setActive(index);
+    setActiveTimelineIndex(index);
   });
 
   return (
@@ -68,7 +88,11 @@ export const TimelineCircle = () => {
       >
         {dots.map((_, index) => (
           <div key={index} className={`${desktopStyles['dot-wrapper']} dot-${index}`}>
-            <ExpandDot className={desktopStyles.dot} onClick={() => handleDotClick(index)}>
+            <ExpandDot
+              isActive={activeTimelineIndex === index}
+              title={timelines[index].name}
+              onClick={() => handleDotClick(index)}
+            >
               {index + 1}
             </ExpandDot>
           </div>

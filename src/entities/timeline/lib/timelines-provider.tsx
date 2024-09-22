@@ -1,15 +1,24 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
+import { ITimeline } from '../model/timeline.type';
+
 const TimelinesContext = createContext<{
-  active: number;
-  setActive: (value: number) => void;
+  activeTimelineIndex: number;
+  setActiveTimelineIndex: (value: number) => void;
+  timelines: ITimeline[];
+  setTimelines: (value: ITimeline[]) => void;
 } | null>(null);
 
 export const TimelinesProvider = ({ children }: PropsWithChildren) => {
-  const [active, setActive] = useState<number | null>(1);
+  const [timelines, setTimelines] = useState<ITimeline[] | null>(null);
+  const [activeTimelineIndex, setActiveTimelineIndex] = useState<number | null>(0);
 
   return (
-    <TimelinesContext.Provider value={{ active, setActive }}>{children}</TimelinesContext.Provider>
+    <TimelinesContext.Provider
+      value={{ timelines, setTimelines, activeTimelineIndex, setActiveTimelineIndex }}
+    >
+      {children}
+    </TimelinesContext.Provider>
   );
 };
 

@@ -7,24 +7,23 @@ import { MouseEventHandler, PropsWithChildren, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 
 type Props = PropsWithChildren<{
-  className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  title: string;
+  isActive?: boolean;
 }>;
 
-export const ExpandDot = ({ children, className, onClick }: Props) => {
-  gsap.registerPlugin(useGSAP);
-
-  const container = useRef();
+export const ExpandDot = ({ children, onClick, title, isActive = false }: Props) => {
+  const container = useRef(null);
 
   const [isHovered, setIsHovered] = useState(false);
 
   useGSAP(
     () => {
-      if (isHovered) {
+      if (isHovered || isActive) {
         gsap.to('.circle', {
           width: 60,
           height: 60,
-          backgroundColor: '#fff',
+          backgroundColor: '#f5f6fa',
         });
 
         gsap.to('.textp', {
@@ -32,7 +31,7 @@ export const ExpandDot = ({ children, className, onClick }: Props) => {
         });
       }
 
-      if (!isHovered) {
+      if (!isHovered && !isActive) {
         gsap.to('.circle', {
           width: 6,
           height: 6,
@@ -44,7 +43,20 @@ export const ExpandDot = ({ children, className, onClick }: Props) => {
         });
       }
     },
-    { dependencies: [isHovered], scope: container },
+    { dependencies: [isHovered, isActive], scope: container },
+  );
+
+  useGSAP(
+    () => {
+      if (isActive) {
+        gsap.to('.title', {
+          scale: 1,
+          opacity: 1,
+          delay: 0.5,
+        });
+      }
+    },
+    { dependencies: [isActive], scope: container, revertOnUpdate: true },
   );
 
   return (
@@ -57,6 +69,7 @@ export const ExpandDot = ({ children, className, onClick }: Props) => {
     >
       <div className={`${styles.circle} circle`} />
       <p className={`${styles.text} textp`}>{children}</p>
+      <h3 className={`${styles.title} title`}>{title}</h3>
     </button>
   );
 };

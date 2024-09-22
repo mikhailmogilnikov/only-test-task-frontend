@@ -1,26 +1,25 @@
-import styles from './styles.module.scss';
+import { sortTimelinesByStartDate } from '../lib/sort-timelines-by-startdate';
 
-import { EventsGallery } from '@/entities/event';
-import { ITimeline, TimelineSelector, TimelinesProvider } from '@/entities/timeline';
+import { TimelineContent } from './content';
 
-type Props = {
+import { ITimeline, TimelinesProvider } from '@/entities/timeline';
+
+export type TimelinesProps = {
   timelines: ITimeline[];
 };
 
-export const TimelinesBlock = ({ timelines }: Props) => {
+export const TimelinesBlock = ({ timelines }: TimelinesProps) => {
   const timelinesCount = timelines.length;
 
   if (timelinesCount < 2 || timelinesCount > 6) {
     return <p>От 2 до 6 временных линий</p>;
   }
 
+  const sortedTimelines = sortTimelinesByStartDate(timelines);
+
   return (
     <TimelinesProvider>
-      <section className={styles.wrapper}>
-        <TimelineSelector />
-        <EventsGallery />
-        <div className={styles['middle-separator']} />
-      </section>
+      <TimelineContent timelines={sortedTimelines} />
     </TimelinesProvider>
   );
 };

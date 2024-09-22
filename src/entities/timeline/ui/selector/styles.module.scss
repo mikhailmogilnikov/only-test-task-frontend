@@ -1,17 +1,87 @@
+@import '@/app/css/mixins.scss';
+
 .wrapper {
   width: 100%;
   height: 600px;
   position: relative;
+
+  .middle-separator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-divider);
+  }
 }
 
-.middle-separator {
+.years_wrapper {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
   top: 50%;
-  transform: translateY(-50%);
-  position: relative;
-  width: 100%;
-  height: 1px;
-  background-color: var(--color-divider);
+  transform: translateX(-51%) translateY(-50%);
+  z-index: 0;
+  width: fit-content;
+
+  .text {
+    font-size: 200px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    text-wrap: nowrap;
+
+    .spacer {
+      margin: 0 30px;
+    }
+
+    .primary {
+      color: var(--color-primary);
+    }
+
+    .secondary {
+      color: var(--color-secondary);
+    }
+  }
+}
+
+.controls-wrapper {
+  position: absolute;
+  left: 60px;
+  bottom: 0px;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .buttons-wrapper {
+    @include flex(row, $gap: 16px);
+
+    button {
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      border: 1px solid var(--color-divider-button);
+      border-radius: 50%;
+      cursor: pointer;
+      transition:
+        background-color 0.2s,
+        opacity 0.2s;
+
+      &:hover {
+        background-color: #fff;
+      }
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    .back {
+      transform: rotate(180deg);
+    }
+  }
 }

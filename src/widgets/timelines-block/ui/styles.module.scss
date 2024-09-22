@@ -3,7 +3,7 @@
 .wrapper {
   @include flex(column, $jus: center);
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   border-width: 0 var(--layout-divider-width);
   border-color: var(--color-divider);
   border-style: solid;

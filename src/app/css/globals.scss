@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+:global {
+  @import '~swiper/css';
+  @import '~swiper/css/navigation';
+  @import '~swiper/css/pagination';
+}
+
 :root {
   --color-background: hsl(228, 33%, 97%);
   --color-foreground: hsl(219, 30%, 37%);
@@ -19,4 +25,3 @@ html {
   padding: 0;
   margin: 0;
 }
-

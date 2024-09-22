@@ -4,6 +4,7 @@
   width: 100%;
   height: 600px;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .middle-separator {
@@ -48,6 +49,7 @@
 }
 
 .controls-wrapper {
+  @include flex(column, $gap: 16px);
   position: absolute;
   left: 60px;
   bottom: 0px;

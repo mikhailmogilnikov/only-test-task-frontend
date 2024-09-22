@@ -1,0 +1,15 @@
+@import '@/app/css/mixins.scss';
+
+.wrapper {
+  @include flex(column, 16px);
+
+  h5 {
+    font-size: 25px;
+    color: var(--color-primary);
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}

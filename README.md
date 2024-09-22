@@ -4,22 +4,27 @@
 
 ### Инструкция по локальному запуску
 
-1) Склонируйте репозиторий
+1) Склонируйте репозиторий через SSH
 ```bash
-git clone https://github.com/mikhailmogilnikov/only-test-task-frontend.git
+git clone git@github.com:mikhailmogilnikov/only-test-task-frontend.git
 ```
 
-2) Установите зависимости
+2) Перейдите в директорию проекта
+```bash
+cd only-test-task-frontend
+```
+
+3) Установите зависимости
 ```bash
 npm install
 ```
 
-3) Соберите проект
+4) Соберите проект
 ```bash
 npm run build
 ```
 
-4) Запустите проект
+5) Запустите проект
 ```bash
 npm run start
 ```

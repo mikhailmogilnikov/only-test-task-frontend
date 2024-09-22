@@ -1,27 +1,24 @@
-import { Navigation, A11y } from 'swiper/modules';
+import { A11y, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { EventCard } from '../../card';
-import { IEvent } from '../../../model/event.type';
+import { EventsProps } from '../desktop';
 import { RestoreSwiper } from '../restore-swiper';
 
 import styles from './styles.module.scss';
 
-export type EventsProps = {
-  events: IEvent[];
-};
-
-export const DesktopEventsGallery = ({ events }: EventsProps) => {
+export const MobileEventsGallery = ({ events }: EventsProps) => {
   return (
     <Swiper
-      grabCursor
       navigation
+      pagination
       className={styles.wrapper}
       containerModifierClass={styles['swiper-wrapper']}
-      modules={[Navigation, A11y]}
-      slidesOffsetAfter={100}
-      slidesPerView={3}
-      spaceBetween={60}
+      modules={[A11y, Pagination]}
+      slidesOffsetAfter={20}
+      slidesOffsetBefore={20}
+      slidesPerView='auto'
+      spaceBetween={20}
     >
       <RestoreSwiper events={events} />
       {events.map((event) => (

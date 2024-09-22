@@ -8,6 +8,7 @@ import { IEvent } from '../../model/event.type';
 
 import { DesktopEventsGallery } from './desktop';
 import styles from './styles.module.scss';
+import { MobileEventsGallery } from './mobile';
 
 import { useTimelines } from '@/entities/timeline';
 import { useIsMobile } from '@/shared/lib/hooks/use-is-mobile';
@@ -42,7 +43,11 @@ export const EventsGallery = () => {
 
   return (
     <div ref={container} className={styles.wrapper}>
-      {isMobile ? 'd' : <DesktopEventsGallery events={eventsData} />}
+      {isMobile ? (
+        <MobileEventsGallery events={eventsData} />
+      ) : (
+        <DesktopEventsGallery events={eventsData} />
+      )}
     </div>
   );
 };

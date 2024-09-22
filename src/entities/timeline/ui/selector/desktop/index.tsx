@@ -15,7 +15,6 @@ export const TimelineSelectorDesktop = () => {
     <div className={styles.wrapper}>
       <div className={`${styles['middle-separator']}`} />
       <TimelineSelectorTitle />
-
       <TimelineCircle />
       <TimelineSelectorYears endYear={endYear} startYear={startYear} />
       <TimelineSelectorControls />

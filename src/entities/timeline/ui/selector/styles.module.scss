@@ -4,18 +4,18 @@
   width: 100%;
   height: 600px;
   position: relative;
+}
 
-  .middle-separator {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    position: relative;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-divider);
-  }
+.middle-separator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-divider);
 }
 
 .years_wrapper {
@@ -83,5 +83,22 @@
     .back {
       transform: rotate(180deg);
     }
+  }
+}
+
+.title-wrapper {
+  @include flex(row, $gap: 64px);
+  width: min-content;
+  height: min-content;
+
+  .accent-line {
+    background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+    width: 5px;
+    height: 110px;
+    margin-top: 12px;
+  }
+
+  h1 {
+    font-size: 56px;
   }
 }
